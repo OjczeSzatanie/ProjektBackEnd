@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Projekt_Back_End.Data;
+using Projekt_Back_End.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,9 @@ builder.Services.AddDbContext<BackEndDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BackEndProject"));
 });
+
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
 
 var app = builder.Build();
 
