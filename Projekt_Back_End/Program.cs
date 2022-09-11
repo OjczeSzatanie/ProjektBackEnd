@@ -22,6 +22,8 @@ builder.Services.AddScoped<IScreeningRoomRepo, ScreeningRoomRepo>();
 
 builder.Services.AddScoped<IKeyRepository, KeyRepository>();
 
+builder.Services.AddScoped<IScreeningRepo, ScreeningRepo>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
