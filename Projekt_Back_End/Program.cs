@@ -18,6 +18,8 @@ builder.Services.AddDbContext<BackEndDbContext>(options =>
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
+builder.Services.AddScoped<IScreeningRoomRepo, ScreeningRoomRepo>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
