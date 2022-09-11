@@ -8,9 +8,10 @@
         public string Genre { get; set; }
         public string Image { get; set; }
 
-        //Navigation
 
         public IEnumerable<Movie_Key> Keys { get; set; }
+
+
 
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Projekt_Back_End.Models.Domain
+﻿namespace Projekt_Back_End.Models.DTO
 {
     public class Movie_Key
     {
@@ -6,6 +6,6 @@
         public DateTime Time_Of_Start { get; set; }
         public DateTime Time_Of_End { get; set; }
 
-      
+       
     }
 }
