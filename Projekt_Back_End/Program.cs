@@ -20,6 +20,8 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 builder.Services.AddScoped<IScreeningRoomRepo, ScreeningRoomRepo>();
 
+builder.Services.AddScoped<IKeyRepository, KeyRepository>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 
