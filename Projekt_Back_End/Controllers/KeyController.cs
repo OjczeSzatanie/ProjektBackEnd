@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projekt_Back_End.Models.Domain;
 using Projekt_Back_End.Repositories;
@@ -19,6 +20,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetAllKeysAsync()
         {
             var keys = await keyRepository.GetAllAsync();
@@ -30,6 +33,8 @@ namespace Projekt_Back_End.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetKeyAsync")]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetKeyAsync(Guid id)
         {
             var key = await keyRepository.GetAsync(id);
@@ -44,6 +49,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> AddKeyAsync(Models.DTO.AddKeyRequest addKeyRequest)
         {
             var key = new Models.Domain.Movie_Key()
@@ -67,6 +74,8 @@ namespace Projekt_Back_End.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> DeleteKeyAsync(Guid id)
         {
             // Get movie from database
@@ -93,6 +102,8 @@ namespace Projekt_Back_End.Controllers
         }
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> UpdateKeyAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateKeyRequest updateKeyRequest)
         {
             //Convert dto to domain

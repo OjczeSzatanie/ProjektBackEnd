@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projekt_Back_End.Models.Domain;
 using Projekt_Back_End.Repositories;
@@ -20,6 +21,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetAllRoomsAsync()
         {
             var rooms = await roomRepo.GetAllAsync();
@@ -28,10 +31,12 @@ namespace Projekt_Back_End.Controllers
             return Ok(roomsDTO);
         }
 
-        [HttpGet]
+       
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetRoomAsync")]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetRoomAsync(Guid id)
         {
             var room = await roomRepo.GetAsync(id);
@@ -45,6 +50,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> AddRoomAsync(Models.DTO.AddRoomRequest addRoomRequest)
         {
             var room = new Models.Domain.Screening_Room()
@@ -66,6 +73,8 @@ namespace Projekt_Back_End.Controllers
         }
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
 
         public async Task<IActionResult> DeleteRoomAsync(Guid id)
         {
@@ -88,6 +97,8 @@ namespace Projekt_Back_End.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> UpdateRoomAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateRoomRequest updateRoomRequest)
         {
             var room = new Models.Domain.Screening_Room()

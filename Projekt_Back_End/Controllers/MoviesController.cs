@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projekt_Back_End.Models.Domain;
 using Projekt_Back_End.Repositories;
@@ -8,6 +9,7 @@ namespace Projekt_Back_End.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
 
     public class MoviesController : Controller
     {
@@ -21,6 +23,7 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetAllMoviesAsync()
         {
             var movies = await movieRepository.GetAllAsync();
@@ -48,6 +51,7 @@ namespace Projekt_Back_End.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetMovieAsync")]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetMovieAsync(Guid id)
         {
             var movie = await movieRepository.GetAsync(id);
@@ -62,6 +66,7 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> AddMovieAsync(Models.DTO.AddMovieRequest addMovieRequest)
         {
             // Request(DTO) to Domain Model
@@ -92,6 +97,7 @@ namespace Projekt_Back_End.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteMovieAsync(Guid id)
         {
             // Get movie from database
@@ -121,6 +127,7 @@ namespace Projekt_Back_End.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> UpdateRegionAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateMovieRequest updateMovieRequest)
         {
             //Convert dto to domain

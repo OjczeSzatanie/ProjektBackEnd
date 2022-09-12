@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projekt_Back_End.Models.Domain;
 using Projekt_Back_End.Repositories;
@@ -20,6 +21,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetAllScreensAsync()
         {
             var screens = await screenRepo.GetAllAsync();
@@ -32,6 +35,8 @@ namespace Projekt_Back_End.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetScreeningsAsync")]
+        [Authorize(Roles = "reader")]
+
         public async Task<IActionResult> GetScreenAsync(Guid id)
         {
             var screen = await screenRepo.GetAsync(id);
@@ -45,6 +50,8 @@ namespace Projekt_Back_End.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> AddScreenAsync(Models.DTO.AddScreeningRequest addScreening)
         {
             var screen = new Models.Domain.Screening()
@@ -71,6 +78,8 @@ namespace Projekt_Back_End.Controllers
         }
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
 
         public async Task<IActionResult> DeleteScreenAsync(Guid id)
         {
@@ -95,6 +104,8 @@ namespace Projekt_Back_End.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
+
         public async Task<IActionResult> UpdateScreenAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateScreeningRequest updateScreening)
         {
             var screen = new Models.Domain.Screening()
